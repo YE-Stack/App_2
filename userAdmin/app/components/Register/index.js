@@ -46,6 +46,7 @@ export default class Register extends React.Component {
     firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
     .then(() => {
         console.log("Registered");
+        this.props.navigation.navigate('Home')
     })
     .catch((err) => {
         alert("Error in registration")
