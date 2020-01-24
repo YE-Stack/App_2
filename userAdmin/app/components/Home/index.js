@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text,TextInput, Button, Alert, Image, KeyboardAvoidingView, ScrollView, TouchableOpacity, AsyncStorage } from 'react-native';
+import { View, Text, TextInput, FlatList, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/MaterialIcons';
 import Icon3 from 'react-native-vector-icons/FontAwesome';
@@ -25,16 +25,21 @@ export default class Home extends React.Component {
 
   readData(){
     let result = null;
-    let url = 'messages/'
+    let url = 'adminControl/messages/'
     firebase.database().ref(url).on('value', (snapshot)=>{
-        // console.log(snapshot.val());
+        console.log(snapshot.val());
         result = snapshot.val();
         this.setState({
             resultList: result,
         })
         console.log(result)
         this.forceUpdate()
-      });       
+      });    
+  // console.log(result)   
+  }
+
+  componentDidMount(){
+    this.readData();
   }
 
   render() {
@@ -42,7 +47,20 @@ export default class Home extends React.Component {
         <View style={styles.parent}>
           <View style={{flex:0.5}}>
           </View>
-                     
+          <Text>Hello</Text>
+          <FlatList
+            data={this.state.resultList}
+            extraData={this.state}
+            renderItem={({item, index}) => 
+            <View>
+              <Text>{item.message}</Text>
+            </View>
+            }
+          />
+          <TouchableOpacity
+          onPress={()=>{this.readData();}}>
+            <Text>PRESS HERE</Text>
+          </TouchableOpacity>
         </View>
     );
   }
