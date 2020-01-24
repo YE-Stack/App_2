@@ -36,7 +36,7 @@ export default class Login extends React.Component {
                     <View style={styles.inputField}>
                       <TextInput
                           value={this.state.mobile}
-                          placeholder="Mobile No or Email Id"
+                          placeholder="Email Id"
                           onChangeText={(value) => this.setState({ mobile: value })}
                           placeholderTextColor="grey"
                           style={{fontSize: 13,alignSelf: 'flex-start',color: 'black',width:'75%',marginLeft: 10}}                   
@@ -69,7 +69,7 @@ export default class Login extends React.Component {
           </TouchableOpacity>
           <View style={{flex: 1,flexDirection: 'row', alignSelf: 'center', paddingTop: 15}}>
             <Text>New User?</Text>
-            <TouchableOpacity onPress={() => {}}>
+            <TouchableOpacity onPress={() => {this.props.navigation.navigate('Register')}}>
               <Text style={{color: '#49ADB6'}}>  Sign Up</Text>
             </TouchableOpacity>
           </View>           
