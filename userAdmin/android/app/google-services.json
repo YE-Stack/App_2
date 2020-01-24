@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "833268205147",
+    "firebase_url": "https://vishi-project.firebaseio.com",
+    "project_id": "vishi-project",
+    "storage_bucket": "vishi-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:833268205147:android:415005d4991cf12ceea17e",
+        "android_client_info": {
+          "package_name": "com.useradmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "833268205147-8nv6kg8pfpshf52aptc649adigk2n4uh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUwsGRANGb5K7IyWJAG62Jm1Rg3MJRRq4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "833268205147-8nv6kg8pfpshf52aptc649adigk2n4uh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

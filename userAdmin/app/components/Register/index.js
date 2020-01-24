@@ -5,35 +5,52 @@ import Icon2 from 'react-native-vector-icons/MaterialIcons';
 import Icon3 from 'react-native-vector-icons/FontAwesome';
 import PasswordInputText from 'react-native-hide-show-password-input';
 import styles from './styles'
- 
-var STORAGE_KEY = 'id_token';
-
+import firebase from 'firebase'
 
 export default class Register extends React.Component {
 
   constructor() {
     super()
     this.state = {
-      mobile: '',
       password: '',
-      showPassword: true,
-      name: '',
-      firstName: '',
-      lastName: '',
       email: '',
-      passwordRe: '',
-      username: '',
-      mobileCheck: true,
-      passLengthCheck: true,
-      passCheck: true,
       emailCheck: true,
-      nullCheck: false,
-      isSubmit: false,
     }
   }
 
   static navigationOptions={
     header: null  
+  }
+
+  checkEmail(email){
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
+    if(reg.test(email) === false){
+        this.setState({emailCheck: false});
+    }else{
+        this.setState({emailCheck: true, nullCheck: true});
+        console.warn("Valid email");
+    }
+  }
+
+  checkpasswordLength(){
+    if(this.state.password.length < 5)
+        this.setState({passLengthCheck: false})
+    else{
+        console.warn("Password Length Valid")
+        this.setState({passLengthCheck: true, nullCheck: true})
+    }    
+  }
+
+  onSubmit(){
+    console.log(this.state.email, this.state.password)
+    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+    .then(() => {
+        console.log("Registered");
+    })
+    .catch((err) => {
+        alert("Error in registration")
+        console.log("Error", err);
+    })
   }
 
   render() {
@@ -58,31 +75,31 @@ export default class Register extends React.Component {
                                     />
                                 </View>
                             </View>
+                            {this.state.emailCheck ? null: <Text style={{color: 'red', padding : 5, margin: 10}}>Invalid Email</Text> }
 
                             <View style={styles.inputSection}>
                                 <Icon name="md-lock" color = "#49ADB6" size={30} style={{alignSelf: 'center'}}></Icon>
                                 <View style={styles.inputField}>
                                     <PasswordInputText
                                         value={this.state.password}
-                                        onBlur={() => {this.checkpasswordEquality()
-                                        this.checkpasswordLength();}}
-                                        onChangeText={(value) => {this.setState({ password: value , isSubmit: false});this.checkpasswordEquality();
-                                        this.checkpasswordLength();}}
+                                        onBlur={() => {this.checkpasswordLength();}}
+                                        onChangeText={(value) => {this.setState({ password: value });this.checkpasswordLength();}}
                                         placeholderTextColor="grey"
                                         style={{fontSize: 13,alignSelf: 'flex-start',color: 'black',width:'90%',marginLeft: 13, marginTop: '0%'}}
                                         secureTextEntry={this.state.showPassword}
                                         keyboardType="default"
-                                        onSubmitEditing={() => {this.checkpasswordEquality()
-                                        this.checkpasswordLength()}}
+                                        onSubmitEditing={() => {this.checkpasswordLength()}}
                                     />
                                 </View>
                             </View>
+                        {this.state.passLengthCheck && !this.state.isSubmit ? null: <Text style={{color: 'red', padding : 5, margin: 10}}>Password length is less than 6</Text> }
+
                         <View style={{flex: 1}}/>
                         <View style={{flex: 1}}/>
                     </ScrollView>
                 </KeyboardAvoidingView>
                 <TouchableOpacity style={styles.bookingButtonUse}
-                        onPress={() => {this.Register(); this.setState({isSubmit: true})}}>
+                        onPress={() => {this.onSubmit()}}>
                             <Text style={{color: 'white', textAlign: 'center', paddingTop: 10}}>Register</Text>
                 </TouchableOpacity>
                 <View style={{flex: 1,flexDirection: 'row', alignSelf: 'center', paddingTop: 15}}>

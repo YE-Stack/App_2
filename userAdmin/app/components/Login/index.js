@@ -4,15 +4,14 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/MaterialIcons';
 import Icon3 from 'react-native-vector-icons/FontAwesome';
 import styles from './styles'
-
-// import axios from 'axios';
+import firebase from 'firebase'
 
 export default class Login extends React.Component {
 
   constructor() {
     super()
     this.state = {
-      mobile: '',
+      email: '',
       password: '',
       success: false,
       isLoading: true,
@@ -22,6 +21,16 @@ export default class Login extends React.Component {
   static navigationOptions={
     header: null  
   } 
+
+  onLoginPress(){
+    firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+    .then(() => {
+      console.log("Success!");
+    })
+    .catch(() => {
+      console.log("Fail!");
+    })
+  }
 
   render() {
     return (
@@ -35,9 +44,9 @@ export default class Login extends React.Component {
                     <Icon3 name="mobile-phone" color = "#49ADB6" size={30} style={{alignSelf: 'center'}}></Icon3>
                     <View style={styles.inputField}>
                       <TextInput
-                          value={this.state.mobile}
+                          value={this.state.email}
                           placeholder="Email Id"
-                          onChangeText={(value) => this.setState({ mobile: value })}
+                          onChangeText={(value) => this.setState({ email: value })}
                           placeholderTextColor="grey"
                           style={{fontSize: 13,alignSelf: 'flex-start',color: 'black',width:'75%',marginLeft: 10}}                   
                           keyboardType="default"
@@ -64,7 +73,7 @@ export default class Login extends React.Component {
             </ScrollView>
           </KeyboardAvoidingView>
           <TouchableOpacity style={styles.bookingButtonUse}
-              onPress={() => {}}>
+              onPress={() => {this.onLoginPress()}}>
                 <Text style={{color: 'white', textAlign: 'center', paddingTop: 10}}>Login</Text>
           </TouchableOpacity>
           <View style={{flex: 1,flexDirection: 'row', alignSelf: 'center', paddingTop: 15}}>
