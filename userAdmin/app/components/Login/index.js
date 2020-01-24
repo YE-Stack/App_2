@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/MaterialIcons';
 import Icon3 from 'react-native-vector-icons/FontAwesome';
 import styles from './styles'
-import firebase from 'firebase'
+import firebase from '../HiddenKey/config'
 
 export default class Login extends React.Component {
 

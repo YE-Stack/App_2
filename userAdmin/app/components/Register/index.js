@@ -5,7 +5,7 @@ import Icon2 from 'react-native-vector-icons/MaterialIcons';
 import Icon3 from 'react-native-vector-icons/FontAwesome';
 import PasswordInputText from 'react-native-hide-show-password-input';
 import styles from './styles'
-import firebase from 'firebase'
+import firebase from '../HiddenKey/config'
 
 export default class Register extends React.Component {
 
